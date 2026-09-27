@@ -1,0 +1,186 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-*: initial;
+  --color-paper: #f7f8f5;
+  --color-sheet: #ffffff;
+  --color-mist: #edf0ea;
+  --color-ink: #1d2420;
+  --color-graphite: #5c645f;
+  --color-rule: #dde1db;
+  --color-leaf: #2d6a4f;
+  --color-leaf-deep: #22543d;
+  --color-highlighter: #f2dc5d;
+  --color-highlighter-edge: #a88414;
+  --color-brick: #a13d30;
+
+  --font-sans: 'Atkinson Hyperlegible Next Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Literata Variable', Georgia, ui-serif, serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-leaf);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-highlighter);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-rule);
+    border-radius: 6px;
+    background-color: var(--color-sheet);
+    color: var(--color-ink);
+    padding: 0.5rem 0.95rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .button:hover {
+    border-color: var(--color-graphite);
+  }
+  .button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .button-primary {
+    border-color: var(--color-leaf);
+    background-color: var(--color-leaf);
+    color: var(--color-sheet);
+  }
+  .button-primary:hover {
+    border-color: var(--color-leaf-deep);
+    background-color: var(--color-leaf-deep);
+  }
+  .button-small {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.875rem;
+  }
+
+  .input {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--color-rule);
+    border-radius: 6px;
+    background-color: var(--color-sheet);
+    padding: 0.55rem 0.75rem;
+  }
+  .input:hover {
+    border-color: var(--color-graphite);
+  }
+  .input[aria-invalid='true'] {
+    border-color: var(--color-brick);
+  }
+  .input::placeholder {
+    color: var(--color-graphite);
+    opacity: 0.8;
+  }
+
+  .study-text {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+  .study-text > * + * {
+    margin-top: 0.85em;
+  }
+  .study-text ul {
+    list-style: disc;
+    padding-left: 1.3em;
+  }
+  .study-text ol {
+    list-style: decimal;
+    padding-left: 1.3em;
+  }
+  .study-text li + li {
+    margin-top: 0.35em;
+  }
+  .study-text li::marker {
+    color: var(--color-graphite);
+  }
+  .study-text code {
+    border-radius: 4px;
+    background-color: var(--color-mist);
+    padding: 0.1em 0.3em;
+    font-family: var(--font-mono);
+    font-size: 0.84em;
+  }
+  .study-text pre {
+    overflow-x: auto;
+    border: 1px solid var(--color-rule);
+    border-radius: 6px;
+    background-color: var(--color-sheet);
+    padding: 0.8rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+  .study-text pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .study-text mark {
+    color: inherit;
+    background: linear-gradient(
+      to bottom,
+      transparent 0.2em,
+      var(--color-highlighter) 0.2em,
+      var(--color-highlighter) calc(100% - 0.1em),
+      transparent calc(100% - 0.1em)
+    );
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    padding: 0 0.2em;
+  }
+  .study-text mark code {
+    background-color: rgb(255 255 255 / 0.5);
+  }
+}
+
+@keyframes appear {
+  from {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+  }
+}
+.appear-late {
+  animation: appear 0s linear 300ms both;
+}
+
+@keyframes point-out {
+  from {
+    background-color: color-mix(in srgb, var(--color-highlighter) 40%, transparent);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+.pointed-at {
+  animation: point-out 2.5s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pointed-at {
+    animation: none;
+  }
+}
